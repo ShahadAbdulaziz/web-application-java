@@ -1,0 +1,80 @@
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet" %>
+<%@page import="java.sql.Statement" %>
+<%@page import="java.sql.Connection" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>JSP Page</title>
+</head>
+    <body>
+<div class="bg-img">
+  <div class="container">
+    <div class="topnav">
+      <a href="#welcome">Home</a>
+      <a href="index.jsp"></a>
+      <a href="Menu.jsp">Update</a>
+      <a href="LogoutServlet1">Log Out</a>
+    </div>
+  </div>
+</div>
+    <center>
+        <br><br><br>
+        <div class="search-container">
+    <form action="" method="POST">
+        <p>If you want search more information about user :
+      <input type="text" placeholder="Search.." name="roll_no">
+      <button type="submit"><i class="fa fa-search"></i></button> </p>
+    </form>
+  </div>
+         <div class="container1">
+                    <h3 class="text-center">List of cars</h3>
+                    <hr>
+                    <br>
+                    <table border="1" width="800">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>information</th>
+                                <th>color</th>
+                                <th>price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%  
+                                Connection con;
+             Class.forName("com.mysql.jdbc.Driver");
+             con= DriverManager.getConnection("jdbc:mysql://localhost/resturant1","root","");
+              Statement stat=null;
+                ResultSet res=null;
+               stat=con.createStatement();
+                                String roll_no=request.getParameter("roll_no");
+                                String sql ="select * from user where name='"+roll_no+"' ";
+                                res=stat.executeQuery(sql);
+                                while(res.next()){
+                                %>
+                                <tr>
+                                    <td><%=res.getString("name")%></td>
+                                    <td><%=res.getString("email")%></td>
+                                    <td><%=res.getString("password")%></td>
+                                   
+                                   
+                                </tr>
+                                <%
+                                    }
+                                %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                                    </center>
+        </center>
+    </body>
+</html>
+
